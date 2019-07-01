@@ -8,11 +8,12 @@ syncAndSeed();
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, ()=>console.log(`listening on port ${port}`))
+app.listen(port, () => console.log(`listening on port ${port}`))
 
-app.get('/', async(req, res, next) => {
+app.get('/', async (req, res, next) => {
   try {
     const data = await Inventory.findAll();
+    // not quite how to set it up... We should be sending back our index.html file instead of a string.
     await res.send(`
     <html>
       <head>
@@ -99,7 +100,7 @@ app.get('/', async(req, res, next) => {
     next(ex)
   }
 });
-
+// great way to send all the products!
 app.get('/api/products', async (req, res, next) => {
   try {
     res.send(await Inventory.findAll());
@@ -108,5 +109,5 @@ app.get('/api/products', async (req, res, next) => {
     next(ex)
   }
 })
-
+// good start. Now define the function that handles this route.
 app.put('/api/products/:id')
